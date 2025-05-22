@@ -1,0 +1,28 @@
+
+> tutor-backend@1.0.0 start
+> node index.js
+
+Database connected successfully.
+Server is running on http://localhost:3000
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_15_APRIL_2018_SHIFT2.pdf
+Generating question paper for prefix: JEE_15_APRIL_2018_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_15_APRIL_2018_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT1.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT2.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT2.pdf
+Sleeping for 2 minutes...
+All PDFs in the batch have been processed (or attempted).

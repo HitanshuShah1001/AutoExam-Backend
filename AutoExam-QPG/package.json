@@ -1,0 +1,58 @@
+{
+    "name": "tutor-backend",
+    "version": "1.0.0",
+    "description": "Backend for the Tutor application.",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "lint": "eslint .",
+        "predev": "npm run lint",
+        "dev": "nodemon index.js",
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.812.0",
+        "@aws-sdk/s3-request-presigner": "^3.812.0",
+        "@google-cloud/documentai": "^8.12.0",
+        "@google-cloud/storage": "^7.15.2",
+        "@mistralai/mistralai": "^1.5.1",
+        "aws-sdk": "^2.1692.0",
+        "axios": "^1.7.9",
+        "bcrypt": "^5.1.1",
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.18.2",
+        "express-rate-limit": "^7.4.1",
+        "html-to-pdfmake": "^2.5.19",
+        "jsdom": "^25.0.1",
+        "jsonwebtoken": "^9.0.2",
+        "jspdf": "^2.5.2",
+        "lodash": "^4.17.21",
+        "multer": "^1.4.5-lts.1",
+        "mustache": "^4.2.0",
+        "openai": "^4.89.0",
+        "path": "^0.12.7",
+        "pdfmake": "^0.2.18",
+        "pg": "^8.11.1",
+        "pg-hstore": "^2.3.4",
+        "plivo": "^4.69.3",
+        "puppeteer": "^24.7.2",
+        "redis": "^4.6.7",
+        "sequelize": "^6.37.5",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
+        "zod": "^3.24.2"
+    },
+    "devDependencies": {
+        "@babel/eslint-parser": "^7.26.8",
+        "@babel/plugin-syntax-import-assertions": "^7.26.0",
+        "eslint": "^9.21.0",
+        "eslint-plugin-import": "^2.31.0",
+        "nodemon": "^3.0.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "author": "Hitanshu Shah"
+}

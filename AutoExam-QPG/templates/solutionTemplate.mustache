@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Solution Sheet</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+        margin: 40px;
+        line-height: 1.6;
+      }
+
+      .header-container {
+        max-height: 20vh;
+        margin-bottom: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .header-line {
+        margin: 4px 0;
+      }
+      .meta-line {
+        font-size: 0.9em;
+        font-style: italic;
+        font-weight: 300;
+        margin: 3px 0;
+      }
+
+      .section-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 40px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .section-title-row h2 {
+        margin: 0;
+      }
+
+      .marks-breakdown {
+        text-align: right;
+        font-weight: normal;
+        font-size: 1rem;
+      }
+
+      ol.solution-list {
+        margin: 0 0 20px 40px;
+        padding: 0;
+      }
+      ol.solution-list li {
+        margin-bottom: 20px;
+      }
+
+      .content-block {
+        margin-left: 5px;
+      }
+
+      .question-header {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .metadata-line {
+        font-size: 0.9em;
+        font-style: italic;
+        font-weight: 300; 
+        margin-bottom: 5px;
+      }
+
+      .solution-line {
+        margin: 5px 0;
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .solution-steps {
+        margin-top: 10px;
+      }
+      .solution-step-item {
+        margin-bottom: 10px;
+      }
+    </style>
+
+    <!-- Include MathJax with config for $...$ and $$...$$ -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+
+  <body>
+    <!-- Header: Academy, subject, grade, total marks, time -->
+    <div class="header-container">
+      <h2 class="header-line">{{academyName}}</h2>
+      <p class="meta-line">
+        Subject: {{subject}} &nbsp; | &nbsp; Grade: {{grade}} &nbsp; | &nbsp; 
+        Total Marks: {{totalMarks}} &nbsp; | &nbsp; Time: {{timeDuration}}
+      </p>
+    </div>
+
+    {{#sections}}
+      <div class="section-title-row">
+        <h2>Section {{name}}</h2>
+        <div class="marks-breakdown">
+          ({{sectionNumberOfQuestions}} x {{sectionMarks}}) = {{sectionTotalMarks}}
+        </div>
+      </div>
+
+      <ol class="solution-list">
+        {{#questions}}
+        <li>
+          <div class="content-block">
+            <!-- Question Text -->
+            <div class="question-header">
+              {{{question}}}
+            </div>
+
+            <!-- Metadata -->
+            <p class="metadata-line">
+              Topic: {{topic}} • Difficulty: {{difficulty}} • Marks: {{marks}}
+            </p>
+
+            <!-- Correct Answer -->
+            {{#isMCQ}}
+              <p>
+                <strong>Correct Answer:</strong> {{{correctAnswerLabel}}} ({{{correctAnswerOption}}})
+              </p>
+            {{/isMCQ}}
+            {{^isMCQ}}
+              <p>
+                <strong>Correct Answer:</strong> {{{correctAnswer}}}
+              </p>
+            {{/isMCQ}}
+
+            <!-- Solution with Steps -->
+            <div class="solution-steps">
+              <strong>Solution:</strong>
+              <div>
+                {{#calculationSteps}}
+                <div class="solution-step-item">
+                  <!-- Math Equation (rendered by MathJax) -->
+                  Step {{stepIndex}}:
+                  <div>
+                    {{{equation}}}
+                  </div>
+                  Explanation: {{{chainOfThoughtExplanation}}}
+                </div>
+                {{/calculationSteps}}
+              </div>
+            </div>
+          </div>
+        </li>
+        {{/questions}}
+      </ol>
+    {{/sections}}
+
+    <!-- Trigger MathJax rendering (optional if you want immediate typeset) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        MathJax.typeset();
+      });
+    </script>
+  </body>
+</html>

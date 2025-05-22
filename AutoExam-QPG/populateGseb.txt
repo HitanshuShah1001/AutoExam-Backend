@@ -1,0 +1,9 @@
+
+> tutor-backend@1.0.0 start
+> node index.js
+
+Database connected successfully.
+Server is running on http://localhost:3000
+Starting to populate 4405 questions
+Populating chunk 1	Question 0-50	Timestamp 2025-03-29T23:06:13.875Z
+Populating chunk 2	Question 50-100	Timestamp 2025-03-29T23:06:34.505Z

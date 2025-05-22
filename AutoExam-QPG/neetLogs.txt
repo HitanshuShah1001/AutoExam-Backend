@@ -1,0 +1,44 @@
+
+> tutor-backend@1.0.0 start
+> node index.js
+
+Database connected successfully.
+Server is running on http://localhost:3000
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_12_SEPTEMBER_2021_M.pdf
+Generating question paper for prefix: NEET_12_SEPTEMBER_2021_M
+Generating question paper for prefix: NEET_12_SEPTEMBER_2021_M
+Generating question paper for prefix: NEET_12_SEPTEMBER_2021_M
+Generating question paper for prefix: NEET_12_SEPTEMBER_2021_M
+Generating question paper for prefix: NEET_12_SEPTEMBER_2021_M
+Structuring question paper with 200 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_12_SEPTEMBER_2021_M.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_13_SEPTEMBER_2020_E.pdf
+Generating question paper for prefix: NEET_13_SEPTEMBER_2020_E
+Generating question paper for prefix: NEET_13_SEPTEMBER_2020_E
+Generating question paper for prefix: NEET_13_SEPTEMBER_2020_E
+Generating question paper for prefix: NEET_13_SEPTEMBER_2020_E
+Structuring question paper with 180 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_13_SEPTEMBER_2020_E.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_5_MAY_2019_P.pdf
+Generating question paper for prefix: NEET_5_MAY_2019_P
+Generating question paper for prefix: NEET_5_MAY_2019_P
+Generating question paper for prefix: NEET_5_MAY_2019_P
+Generating question paper for prefix: NEET_5_MAY_2019_P
+Structuring question paper with 179 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_5_MAY_2019_P.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_6_MAY_2018_A.pdf
+Generating question paper for prefix: NEET_6_MAY_2018_A
+Generating question paper for prefix: NEET_6_MAY_2018_A
+Generating question paper for prefix: NEET_6_MAY_2018_A
+Generating question paper for prefix: NEET_6_MAY_2018_A
+Structuring question paper with 180 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/NEET_6_MAY_2018_A.pdf
+Sleeping for 2 minutes...
+All PDFs in the batch have been processed (or attempted).

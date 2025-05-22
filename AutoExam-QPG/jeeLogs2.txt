@@ -1,0 +1,161 @@
+
+> tutor-backend@1.0.0 start
+> node index.js
+
+Database connected successfully.
+Server is running on http://localhost:3000
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_APRIL_2024_SHIFT2.pdf
+Generating question paper for prefix: JEE_6_APRIL_2024_SHIFT2 | Retry 1
+Generating question paper for prefix: JEE_6_APRIL_2024_SHIFT2 | Retry 2
+Generating question paper for prefix: JEE_6_APRIL_2024_SHIFT2 | Retry 3
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_APRIL_2024_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_SEPTEMBER_2020_SHIFT1.pdf
+Generating question paper for prefix: JEE_6_SEPTEMBER_2020_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_SEPTEMBER_2020_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_SEPTEMBER_2020_SHIFT2.pdf
+Generating question paper for prefix: JEE_6_SEPTEMBER_2020_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_6_SEPTEMBER_2020_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_7_JANUARY_2020_SHIFT1.pdf
+Generating question paper for prefix: JEE_7_JANUARY_2020_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 89 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_7_JANUARY_2020_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_7_JANUARY_2020_SHIFT2.pdf
+Generating question paper for prefix: JEE_7_JANUARY_2020_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_7_JANUARY_2020_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2018_SHIFT1.pdf
+Generating question paper for prefix: JEE_8_APRIL_2018_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2018_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2019_SHIFT1.pdf
+Generating question paper for prefix: JEE_8_APRIL_2019_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2019_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2019_SHIFT2.pdf
+Generating question paper for prefix: JEE_8_APRIL_2019_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2019_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2023_SHIFT1.pdf
+Generating question paper for prefix: JEE_8_APRIL_2023_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2023_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2023_SHIFT2.pdf
+Generating question paper for prefix: JEE_8_APRIL_2023_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2023_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2024_SHIFT1.pdf
+Generating question paper for prefix: JEE_8_APRIL_2024_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2024_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2024_SHIFT2.pdf
+Generating question paper for prefix: JEE_8_APRIL_2024_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_APRIL_2024_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_JANUARY_2020_SHIFT1.pdf
+Generating question paper for prefix: JEE_8_JANUARY_2020_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 89 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_JANUARY_2020_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_JANUARY_2020_SHIFT2.pdf
+Generating question paper for prefix: JEE_8_JANUARY_2020_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_8_JANUARY_2020_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2019_SHIFT1.pdf
+Generating question paper for prefix: JEE_9_APRIL_2019_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2019_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2019_SHIFT2.pdf
+Generating question paper for prefix: JEE_9_APRIL_2019_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2019_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2024_SHIFT1.pdf
+Generating question paper for prefix: JEE_9_APRIL_2024_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 89 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2024_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2024_SHIFT2.pdf
+Generating question paper for prefix: JEE_9_APRIL_2024_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 78 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_APRIL_2024_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2019_SHIFT1.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2019_SHIFT1 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2019_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2019_SHIFT2.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2019_SHIFT2 | Retry 1
+OpenAI response timestamp: function now() { [native code] }
+Structuring question paper with 90 questions
+Successfully updated question paper status
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2019_SHIFT2.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT1.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT1 | Retry 1
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT1 | Retry 2
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT1 | Retry 3
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT1.pdf
+Sleeping for 2 minutes...
+Processing PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT2.pdf
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT2 | Retry 1
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT2 | Retry 2
+Generating question paper for prefix: JEE_9_JANUARY_2020_SHIFT2 | Retry 3
+Successfully processed PDF: https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/JEE_9_JANUARY_2020_SHIFT2.pdf
+Sleeping for 2 minutes...
+All PDFs in the batch have been processed (or attempted).

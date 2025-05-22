@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css"
+    integrity="sha384-…"
+    crossorigin="anonymous"
+  />
+    <meta charset="utf-8" />
+    <title>AutoExam.ai Question Paper</title>
+    <style>
+      body {
+        font-family: math;
+        margin: 0 40px 40px 40px;
+        line-height: 1.6;
+      }
+
+      .question-text * {
+        white-space: inherit;      /* Inherit whitespace property from parent */
+      }
+
+      .header-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      
+      /* Updated for horizontal layout */
+      .school-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+      
+      .logo-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-right: 15px;
+      }
+      
+      .school-name {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      
+      .logo-image {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+      
+      /* Updated for horizontal layout of subject/time info */
+      .exam-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .subject-grade {
+        margin-right: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .marks-time {
+        margin-left: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .subject-grade p, .marks-time p {
+        margin: 2px 0;
+      }
+      
+      .header-text {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+      
+      .header-text h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        line-height: 1.2;
+      }
+      
+      .header-text p {
+        margin: 2px 0;
+        font-size: 0.9rem;
+      }
+
+      .question-text * {
+        white-space: inherit;
+      }
+
+      .header-line {
+        margin: 4px 0;
+      }
+
+      .section-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .marks-breakdown {
+        text-align: right;
+        font-weight: normal;
+        font-size: 1rem;
+      }
+
+      ol.question-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+
+      ol.question-list li {
+        margin-bottom: 10px;
+      }
+
+      .question-container {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .question-number {
+        font-weight: bold;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+
+      .question-text {
+        font-weight: bold;
+        flex: 1;
+        white-space: pre-wrap;      /* preserve spaces, tabs & newlines */
+        word-break: break-word;     /* allow long lines to wrap */
+      }
+
+      .question-text p {
+        margin: 0;                  /* paragraphs force true line breaks */
+      }
+
+      .question-marks {
+        margin-left: 10px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .mcq-options {
+        margin-top: 5px;
+        margin-left: 20px;
+        padding: 0;
+        list-style-type: upper-alpha;
+      }
+
+      .mcq-options li {
+        margin: 3px 0;
+      }
+
+      .optional-question {
+        margin-bottom: 10px;
+      }
+
+      .or-divider {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      /* Modified MCQ display with grid layout for consistent spacing */
+      .mcq-options-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin-top: 10px;
+        margin-left: 20px;
+      }
+
+      /* Updated mcq-option to better match question-container alignment */
+      .mcq-option {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      /* Fixed mcq-label to match question-number style */
+      .mcq-label {
+        font-weight: bold;
+        margin-right: 10px;
+        flex-shrink: 0;
+        line-height: inherit;
+      }
+
+      /* Updated mcq-content to match question-text style */
+      .mcq-content {
+        flex: 1;
+      }
+
+      .mcq-image-wrapper {
+        text-align: left;
+      }
+
+      .mcq-image {
+        max-width: 120px;
+        max-height: 120px;
+        margin-bottom: 10px;
+      }
+
+      /* Adjusted text wrapper to match question-text container */
+      .mcq-text-wrapper {
+        text-align: left;
+      }
+
+      /* Fixed mcq-text to ensure proper alignment with the label */
+      .mcq-text {
+        display: block;
+        white-space: pre-wrap;      /* preserve whitespace in options */
+        word-break: break-word;
+      }
+      
+      /* Ensure paragraphs in mcq-text have proper margin */
+      .mcq-text p {
+        margin: 0;
+      }
+
+      .student-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .name-field {
+        width: 78%;
+        padding-right: 10px;
+        font-size: 16px;
+      }
+      .rollno-field {
+        width: 20%;
+        font-size: 16px;
+        text-align: left;
+      }
+      .label {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      .question-images {
+        display: flex;
+        flex-wrap: wrap;      /* if you want images to wrap onto new lines */
+        gap: 10px;            /* space between images */
+        margin-top: 5px;
+        justify-content:center;
+      }
+      .question-images img {
+        max-width: 240px;
+        max-height: 240px;
+        display: block;
+      }
+
+      .school-name h2 {
+        margin-bottom: 0;
+      }
+
+      .subject-grade p {
+        font-weight: 600
+      }
+
+      .marks-time p {
+        font-weight: 600
+      }
+
+      .dashed-divider {
+        width: 100%;
+        height: 1px;
+        border-bottom: 2px dashed #000;
+        margin: 10px 0;
+      }
+    </style>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: {
+          ignoreHtmlClass: 'katex|ql-formula'
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+
+  <body>
+    <div class="header-container">
+      <!-- New row layout for logo and school name -->
+      <div class="school-header">
+        <div class="logo-container">
+          <img
+            src="https://tutor-staffroom-files.s3.ap-south-1.amazonaws.com/surya_logo.png"
+            alt="Academy Logo"
+            class="logo-image"
+          />
+        </div>
+        <div class="school-name">
+          <h2>Surya International School</h2>
+        
+        </div>
+      </div>
+      
+      <h2 class="header-line">{{academyName}}</h2>
+        <h3 style="margin-top:0px !important">Grade: {{grade}}</h3>
+      
+      <!-- New row layout for subject/grade and marks/time -->
+      <div class="exam-info">
+        <div class="subject-grade">
+          <p>Subject: {{subject}}</p>
+          
+          <p>Date: 30/04/2025</p>
+      
+        </div>
+        <div class="marks-time">
+          <p>Total Marks: {{totalMarks}}</p>
+          <p>Time: 1 hour</p>
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="dashed-divider"></div>
+    <div class="dashed-divider"></div>
+
+
+    {{#sections}}
+      <div class="section-title-row">
+        <h2>Section {{name}}</h2>
+      </div>
+
+      <ol class="question-list">
+        {{#questions}}
+          {{#optionalGroup}}
+            <li class="optional-question">
+              {{#questions}}
+                <div class="question-container" style="{{#isFirst}}margin-left:0;{{/isFirst}}{{^isFirst}}margin-left:{{subQuestionPadding}}ch;{{/isFirst}}">
+                  <span class="question-number"><strong>{{questionNumber}})</strong></span>
+                  <div class="question-text">{{{question}}}</div>
+                  <span class="question-marks">({{marks}} marks)</span>
+                </div>
+                <div class="question-images">
+                  {{#imageUrls}}
+                    <img src="{{.}}" alt="Question Image">
+                  {{/imageUrls}}
+                </div>
+                {{#isMCQ}}
+                  <div class="mcq-options-row">
+                    {{#options}}
+                      <div class="mcq-option">
+                        <div class="mcq-label">{{key}}.</div>
+                        <div class="mcq-content">
+                          {{#imageUrl}}
+                            <div class="mcq-image-wrapper">
+                              <img src="{{imageUrl}}" alt="Option Image" class="mcq-image">
+                            </div>
+                          {{/imageUrl}}
+                          <div class="mcq-text-wrapper">
+                            <div class="mcq-text">{{{option}}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    {{/options}}
+                  </div>
+                {{/isMCQ}}
+
+                {{^last}}
+                  <div class="or-divider">OR</div>
+                {{/last}}
+              {{/questions}}
+            </li>
+          {{/optionalGroup}}
+
+          {{^optionalGroup}}
+            <li>
+              <div class="question-container">
+                <span class="question-number"><strong>{{questionNumber}})</strong></span>
+                <div class="question-text">{{{question}}}</div>
+                <span class="question-marks">({{marks}} marks)</span>
+              </div>
+              <div class="question-images">
+                {{#imageUrls}}
+                  <img src="{{.}}" alt="Question Image">
+                {{/imageUrls}}
+              </div>
+
+
+              {{#isMCQ}}
+                <div class="mcq-options-row">
+                  {{#options}}
+                    <div class="mcq-option">
+                      <div class="mcq-label">{{key}}.</div>
+                      <div class="mcq-content">
+                        {{#imageUrl}}
+                          <div class="mcq-image-wrapper">
+                            <img src="{{imageUrl}}" alt="Option Image" class="mcq-image">
+                          </div>
+                        {{/imageUrl}}
+                        <div class="mcq-text-wrapper">
+                          <div class="mcq-text">{{{option}}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  {{/options}}
+                </div>
+              {{/isMCQ}}
+            </li>
+          {{/optionalGroup}}
+        {{/questions}}
+      </ol>
+    {{/sections}}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        MathJax.typeset();
+      });
+    </script>
+  </body>
+</html>

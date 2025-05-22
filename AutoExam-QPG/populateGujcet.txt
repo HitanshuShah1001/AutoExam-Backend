@@ -1,0 +1,24 @@
+
+> tutor-backend@1.0.0 start
+> node index.js
+
+Database connected successfully.
+Server is running on http://localhost:3000
+Starting to populate 807 questions
+Populating chunk 1	Question 0-50	Timestamp 2025-03-29T20:42:25.544Z
+Populating chunk 2	Question 50-100	Timestamp 2025-03-29T20:43:03.943Z
+Populating chunk 3	Question 100-150	Timestamp 2025-03-29T20:43:42.337Z
+Populating chunk 4	Question 150-200	Timestamp 2025-03-29T20:44:18.672Z
+Populating chunk 5	Question 200-250	Timestamp 2025-03-29T20:44:57.373Z
+Populating chunk 6	Question 250-300	Timestamp 2025-03-29T20:45:32.697Z
+Populating chunk 7	Question 300-350	Timestamp 2025-03-29T20:46:09.825Z
+Populating chunk 8	Question 350-400	Timestamp 2025-03-29T20:46:50.033Z
+Populating chunk 9	Question 400-450	Timestamp 2025-03-29T20:47:24.655Z
+Populating chunk 10	Question 450-500	Timestamp 2025-03-29T20:48:00.940Z
+Populating chunk 11	Question 500-550	Timestamp 2025-03-29T20:48:40.013Z
+Populating chunk 12	Question 550-600	Timestamp 2025-03-29T20:49:16.223Z
+Populating chunk 13	Question 600-650	Timestamp 2025-03-29T20:50:00.353Z
+Populating chunk 14	Question 650-700	Timestamp 2025-03-29T20:50:42.330Z
+Populating chunk 15	Question 700-750	Timestamp 2025-03-29T20:51:23.928Z
+Populating chunk 16	Question 750-800	Timestamp 2025-03-29T20:52:01.234Z
+Populating chunk 17	Question 800-850	Timestamp 2025-03-29T20:52:42.648Z

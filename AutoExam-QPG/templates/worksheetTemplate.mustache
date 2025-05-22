@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Student Insights Report</title>
+    <style>
+      body {
+        font-family: math;
+        margin: 40px;
+        line-height: 1.5;
+      }
+      .header-container {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .header-container h1 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      .header-container p {
+        margin: 5px 0;
+        font-size: 1rem;
+      }
+      .section {
+        margin-bottom: 25px;
+      }
+      .section h2 {
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+      }
+      ul, ol {
+        margin: 0 0 0 20px;
+      }
+      .question-list > li {
+        margin-bottom: 15px;
+      }
+      .question-text {
+        font-weight: bold;
+        white-space: pre-wrap;
+        word-break: break-word;
+        display: inline;
+      }
+      .question-marks {
+        font-style: italic;
+        margin-left: 10px;
+      }
+      .options {
+        margin-top: 8px;
+        padding-left: 0;
+        list-style-type: none;
+      }
+      .options li {
+        margin-bottom: 4px;
+        display: inline-block;
+        margin-right: 20px;
+      }
+    </style>
+    
+    <!-- MathJax for rendering any LaTeX in descriptive questions -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: {
+          ignoreHtmlClass: 'no-mathjax'
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  
+  <body>
+    <div class="header-container">
+      <h1>Student Performance Report</h1>
+    </div>
+    
+    <div class="section" id="insights">
+      <h2>Student Insights</h2>
+      <ul>
+        {{#student_insights}}
+          <li>{{.}}</li>
+        {{/student_insights}}
+      </ul>
+    </div>
+    
+    <div class="section" id="recommendations">
+      <h2>Parent Recommendations</h2>
+      <ol>
+        {{#parent_recommendations}}
+          <li>{{.}}</li>
+        {{/parent_recommendations}}
+      </ol>
+    </div>
+    
+    <div class="section" id="questions">
+      <h2>✏️ Practice Questions</h2>
+      <ol class="question-list">
+        {{#answer}}
+          <li>
+            <div class="question-text">{{{question}}}</div>
+            <span class="question-marks">({{marks}} mark{{#marksPlural}}s{{/marksPlural}})</span>
+            
+            {{#options}}
+              <ul class="options">
+                {{#.}}
+                  <li><strong>{{key}}.</strong> {{{option}}}</li>
+                {{/.}}
+              </ul>
+            {{/options}}
+          </li>
+        {{/answer}}
+      </ol>
+    </div>
+    
+    <script>
+      // trigger MathJax after content is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.MathJax && MathJax.typeset) {
+          MathJax.typeset();
+        }
+      });
+    </script>
+  </body>
+</html>
