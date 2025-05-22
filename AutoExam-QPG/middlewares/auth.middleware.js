@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { ACCESS_TOKEN_REQUIRED } from "../utils/constants";
 dotenv.config();
 
 export const verifyAccessToken = (req, res, next) => {
@@ -8,7 +9,7 @@ export const verifyAccessToken = (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ success: false, message: "Access token is required" });
+        .json({ success: false, message: ACCESS_TOKEN_REQUIRED });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

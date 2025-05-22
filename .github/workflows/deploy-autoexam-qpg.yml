@@ -1,0 +1,44 @@
+name: Deploy AutoExam-QPG to Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'AutoExam-QPG/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # make all run-steps execute from the app’s subfolder
+        working-directory: AutoExam-QPG
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install EB CLI
+        run: |
+          pip install awsebcli
+          eb --version
+
+      - name: Zip app for Beanstalk
+        run: |
+          zip -r deploy.zip . -x "*.git*" "*.env*" "node_modules/*"
+
+      - name: Deploy to Elastic Beanstalk
+        env:
+          AWS_ACCESS_KEY_ID:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION:            ${{ secrets.AWS_REGION }}
+        run: |
+          eb init autoexam-production --region $AWS_REGION --platform "Node.js"
+          eb use Autoexam-production-env
+          eb deploy --staged --label "auto-$(date +%s)"
