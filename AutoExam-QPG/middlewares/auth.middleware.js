@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { ACCESS_TOKEN_REQUIRED } from "../utils/constants";
+import { ACCESS_TOKEN_REQUIRED } from "../utils/constants.js";
 dotenv.config();
 
 export const verifyAccessToken = (req, res, next) => {
