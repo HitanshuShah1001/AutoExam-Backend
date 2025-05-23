@@ -15,18 +15,19 @@ const referenceSheetRouter = express.Router();
 referenceSheetRouter.post(
   "/parse-reference-sheet-and-save-details",
   async (req, res) => {
-    const { pdfUrl, school, standard, subject, test_date } = req.body;
+    const { referenceSheetLink, school, standard, subject, test_date } =
+      req.body;
     // 1) Validate all required inputs in one place
-    if (!pdfUrl || !school || !standard || !subject || !test_date) {
+    if (!referenceSheetLink || !school || !standard || !subject || !test_date) {
       return res.status(400).json({
         success: false,
         error:
-          "Missing required parameters: pdfUrl, school, standard, subject, test_date",
+          "Missing required parameters: referenceSheetUrl, school, standard, subject, test_date",
       });
     }
 
     try {
-      const { Bucket, Key } = parseS3Url(pdfUrl);
+      const { Bucket, Key } = parseS3Url(referenceSheetLink);
 
       // 3) Run each async step through safeCall to auto-wrap errors
       const s3Object = await safeCall("retrieve file from S3", () =>
@@ -68,13 +69,12 @@ referenceSheetRouter.post(
             standard,
             subject,
             test_date,
-            original_pdf_url: pdfUrl,
+            original_pdf_url: referenceSheetLink,
             ocr_text: JSON.stringify(updatedOcrResponse),
             conversion_json: generatedResult,
             cost_of_conversion_to_evaluable_json: cost,
           })
       );
-      console.log(referenceSheetDoc.id);
 
       // 5) Final response
       return res.status(200).json({
@@ -83,6 +83,7 @@ referenceSheetRouter.post(
         referenceSheetId: referenceSheetDoc?.id,
       });
     } catch (err) {
+      console.error("Error in reference sheet route:", err);
       // unified error handler
       return res.status(err.statusCode || 500).json({
         success: false,
