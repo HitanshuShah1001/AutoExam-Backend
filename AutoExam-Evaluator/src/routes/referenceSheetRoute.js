@@ -1,5 +1,5 @@
 import express from "express";
-import { parseS3Url, s3 } from "../config/s3.js";
+import { parseS3UrlForEvaluation, s3 } from "../config/s3.js";
 import {
   convertToOCR,
   getSignedUrl,
@@ -10,6 +10,7 @@ import {
 import { generateReferenceSheetFromExtractedTextMistral } from "../controllers/referenceAnswerSheetController.js";
 import path from "path";
 import { ReferenceSheet } from "../models/ReferenceSheet.js";
+import { AUTOEXAM_EVALUATION_BUCKET } from "../constants.js";
 const referenceSheetRouter = express.Router();
 
 referenceSheetRouter.post(
@@ -27,7 +28,8 @@ referenceSheetRouter.post(
     }
 
     try {
-      const { Bucket, Key } = parseS3Url(referenceSheetLink);
+      const Bucket = AUTOEXAM_EVALUATION_BUCKET;
+      const { Key } = parseS3UrlForEvaluation(referenceSheetLink);
       // 3) Run each async step through safeCall to auto-wrap errors
       const s3Object = await safeCall("retrieve file from S3", () =>
         s3.getObject({ Bucket, Key }).promise()

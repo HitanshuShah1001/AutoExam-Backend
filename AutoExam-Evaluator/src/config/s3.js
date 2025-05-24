@@ -31,3 +31,24 @@ export function parseS3Url(s3Url) {
 
   return { Bucket, Key };
 }
+
+export const parseS3UrlForEvaluation = (s3Url) => {
+  let Bucket, Key;
+
+  if (s3Url.startsWith("s3://")) {
+    const withoutPrefix = s3Url.replace("s3://", "");
+    const [bucket, ...rest] = withoutPrefix.split("/");
+    Bucket = bucket;
+    Key = rest.join("/");
+  } else if (s3Url.startsWith("https://")) {
+    const match = s3Url.match(
+      /^https:\/\/([^.]+)\.s3\.amazonaws\.com\/(.+)$/
+    );
+    if (match) {
+      Bucket = match[1];
+      Key = match[2];
+    }
+  }
+
+  return { Key };
+};
