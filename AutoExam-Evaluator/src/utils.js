@@ -98,5 +98,22 @@ export function costOfOpenAiCall({ i_t, o_t }) {
   const I_C = (i_t * INPUT_PER_1M_COST) / ONE_MILLION;
   const O_C = (o_t * OUTPUT_PER_1M_COST) / ONE_MILLION;
   const total_cost = (I_C + O_C).toFixed(2) * DOLLAR_TO_INR_RATE;
-  return total_cost
+  return total_cost;
+}
+
+/**
+ * Given an S3 URL like
+ *   https://...amazonaws.com/answer_evaluations/HITANSHU_PATEL.pdf
+ * returns "Hitanshu Patel"
+ */
+export function extractStudentNameFromUrl(url) {
+  // 1) pull off everything after the last slash
+  const filename = url.substring(url.lastIndexOf("/") + 1);
+  // 2) strip the extension
+  const [namePart] = filename.split(".");
+  // 3) split on underscore, lowercase+capitalize each
+  return namePart
+    .split("_")
+    .map((word) => word.toLowerCase().replace(/^\w/, (c) => c.toUpperCase()))
+    .join(" ");
 }
