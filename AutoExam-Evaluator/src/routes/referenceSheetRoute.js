@@ -28,7 +28,6 @@ referenceSheetRouter.post(
 
     try {
       const { Bucket, Key } = parseS3Url(referenceSheetLink);
-
       // 3) Run each async step through safeCall to auto-wrap errors
       const s3Object = await safeCall("retrieve file from S3", () =>
         s3.getObject({ Bucket, Key }).promise()

@@ -2,7 +2,7 @@ import s3 from "../s3.js";
 
 export async function uploadAndReplaceImages({ ocrResponse, prefix }) {
     // The S3 bucket and prefix (folder) where images will be stored
-    const bucketName = process.env.S3_BUCKET_NAME || "tutor-staffroom-files";
+    const bucketName = process.env.S3_BUCKET_NAME || "autoexam-images-and-pdfs";
 
     // Safety check in case `ocrResponse.pages` is missing or not an array
     if (!ocrResponse || !Array.isArray(ocrResponse.pages)) {

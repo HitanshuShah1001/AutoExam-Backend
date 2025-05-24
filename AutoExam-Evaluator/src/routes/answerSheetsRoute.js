@@ -17,25 +17,25 @@ const studentReferenceSheetRouter = express.Router();
 studentReferenceSheetRouter.post(
   "/parse-student-answer-sheet-and-save-details",
   async (req, res) => {
-    const { pdfUrls, referenceSheetId, ...data } = req.body;
+    const { studentSheetUrls, referenceSheetId, ...data } = req.body;
     const referenceSheet = await ReferenceSheet.findByPk(referenceSheetId);
     const referenceSheetConversionJson = referenceSheet.conversion_json;
     if (
-      !pdfUrls ||
-      !Array.isArray(pdfUrls) ||
-      pdfUrls.length === 0 ||
+      !studentSheetUrls ||
+      !Array.isArray(studentSheetUrls) ||
+      studentSheetUrls.length === 0 ||
       !referenceSheetId ||
-      !data.test_data ||
+      !data.test_date ||
       !data.standard
     ) {
       return res.status(400).json({
         success: false,
         error:
-          "Missing required parameters: pdfUrls/referenceSheetId/Test_date/Standard",
+          "Missing required parameters: studentSheetUrls/referenceSheetId/Test_date/Standard",
       });
     }
     try {
-      for (let pdfUrl of pdfUrls) {
+      for (let pdfUrl of studentSheetUrls) {
         const { Bucket, Key } = parseS3Url(pdfUrl);
         const s3Object = await safeCall("retrieve file from S3", () =>
           s3.getObject({ Bucket, Key }).promise()
@@ -52,7 +52,7 @@ studentReferenceSheetRouter.post(
         );
 
         const { name: prefix } = path.parse(Key);
-        const updatedOcrResponse = await safeCall(
+        const ocrResponseForStudentSheet = await safeCall(
           "upload and replace images",
           () => uploadAndReplaceImages({ ocrResponse, prefix })
         );
@@ -61,7 +61,7 @@ studentReferenceSheetRouter.post(
           costOfPreparingStudentAnswerSheetJson,
         ] = await safeCall("generate answer json and calculate marks", () =>
           generateStudentEvaluationFromExtractedTextMistral({
-            ocrResponse: updatedOcrResponse,
+            ocrResponse: ocrResponseForStudentSheet,
             referenceAnswerSheet: referenceSheetConversionJson,
           })
         );

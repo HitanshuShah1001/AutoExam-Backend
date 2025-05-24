@@ -678,7 +678,7 @@ export async function uploadToS3(content, name, fileType) {
   };
 
   await s3.upload(uploadParams).promise();
-  const fileUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION_OLD}.amazonaws.com/${fileKey}`;
+  const fileUrl = `https://${process.env.S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
   return fileUrl;
 }
 

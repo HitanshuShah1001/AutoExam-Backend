@@ -1,6 +1,6 @@
 import { openai } from "../config/openai.js";
 import { MAX_RETRIES } from "../constants.js";
-import { getOpenAiResponseForStudentAnswerSheet } from "../../messages/getOpenAiMessagesForStudentAnswerSheet.js";
+import { getOpenAiResponseForStudentAnswerSheet } from "../messages/getOpenAiMessagesForStudentAnswerSheet.js";
 import { getStudentAnswerSheetResponseFormat } from "../responseFormat/studentAnswersheet.js";
 import { costOfOpenAiCall } from "../utils.js";
 
