@@ -669,7 +669,7 @@ ${extractedText}
 }
 
 export async function uploadToS3(content, name, fileType) {
-  const fileKey = `questionPapers/${name}.${fileType}`;
+  const fileKey = `/${name}.${fileType}`;
   const uploadParams = {
     Bucket: process.env.S3_BUCKET_NAME,
     Key: fileKey,
