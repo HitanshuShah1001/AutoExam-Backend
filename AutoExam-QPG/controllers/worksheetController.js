@@ -4,7 +4,7 @@ class WorksheetController {
     const { student_data } = req.body;
     const renderedWorksheetHTML = generateHTML(
       student_data,
-      "./templates/workSheetTemplate.mustache"
+      "./templates/workSheetTemplateForMultiTest.mustache"
     );
     const worksheetHTMLURL = await uploadToS3(
       renderedWorksheetHTML,

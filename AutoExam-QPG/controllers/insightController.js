@@ -54,22 +54,50 @@ class StudentController {
   }
 
   async downloadWorksheetFromPdf(req, res) {
+  try {
     const { s3Link, pathToSave } = req.body;
+    
+    console.log('=== Controller Debug ===');
+    console.log('Received s3Link:', s3Link);
+    console.log('Received pathToSave:', pathToSave);
+    
+    // Validate inputs
+    if (!s3Link || !pathToSave) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required parameters: s3Link and pathToSave"
+      });
+    }
+    
     const response = await htmlUrlToPdf({
       htmlUrl: s3Link,
       savePath: pathToSave,
     });
-    if (response.success == true) {
+    
+    console.log('PDF generation response:', response);
+    
+    if (response.success === true) {
       return res.status(201).json({
         path: response.savedPath,
         success: true,
+        fileSize: response.fileSize
       });
     } else {
       return res.status(400).json({
         success: false,
+        error: response.error,
+        message: "PDF generation failed"
       });
     }
+  } catch (e) {
+    console.error("Error in downloadWorksheetFromPdf controller:", e);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to download worksheet from PDF",
+      error: e.message,
+    });
   }
+}
 }
 
 export const studentController = new StudentController();

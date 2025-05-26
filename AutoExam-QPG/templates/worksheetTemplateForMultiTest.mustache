@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Student Insights Report</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        line-height: 1.6;
+        color: #333;
+      }
+      .header-container {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #4a90e2;
+        padding-bottom: 20px;
+      }
+      .header-container h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: #4a90e2;
+      }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+      }
+      .section h2 {
+        color: #4a90e2;
+        border-bottom: 2px solid #4a90e2;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        font-size: 1.3rem;
+      }
+      .section h3 {
+        color: #2c5aa0;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+      .parent-recommendations {
+        background-color: #e8f4fd;
+        border-left: 4px solid #4a90e2;
+        padding: 20px;
+        white-space: pre-line;
+      }
+      .performance-overview {
+        background-color: #f0f8f0;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .subject-analysis {
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      .subject-name {
+        background-color: #4a90e2;
+        color: white;
+        padding: 8px 15px;
+        margin: -15px -15px 15px -15px;
+        border-radius: 6px 6px 0 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+      .trend-positive {
+        color: #28a745;
+        font-weight: bold;
+      }
+      .trend-neutral {
+        color: #ffc107;
+        font-weight: bold;
+      }
+      .trend-negative {
+        color: #dc3545;
+        font-weight: bold;
+      }
+      ul, ol {
+        margin: 10px 0;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      .strong-topics {
+        background-color: #d4edda;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+      }
+      .weak-topics {
+        background-color: #f8d7da;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+      }
+      .recommendations {
+        background-color: #fff3cd;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+      }
+      .question-list > li {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      .question-text {
+        font-weight: bold;
+        white-space: pre-wrap;
+        word-break: break-word;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .question-marks {
+        font-style: italic;
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .options {
+        margin-top: 12px;
+        padding-left: 0;
+        list-style-type: none;
+      }
+      .options li {
+        margin-bottom: 6px;
+        padding: 5px 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+      }
+      .no-content {
+        font-style: italic;
+        color: #666;
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+    
+    <!-- MathJax for rendering any LaTeX in descriptive questions -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        options: {
+          ignoreHtmlClass: 'no-mathjax'
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  
+  <body>
+    <div class="header-container">
+      <h1>Student Performance Report</h1>
+    </div>
+    
+    <div class="section" id="parent-recommendations">
+      <h2>📋 Parent Recommendations</h2>
+      <div class="parent-recommendations">
+        {{parent_recommendations}}
+      </div>
+    </div>
+    
+    <div class="section" id="insights">
+      <h2>📊 Student Insights</h2>
+      
+      {{#student_insights}}
+        <div class="performance-overview">
+          <h3>Overall Performance</h3>
+          <p>{{overall_performance}}</p>
+        </div>
+        
+        {{#subject_wise_analysis}}
+          <div class="subject-analysis">
+            <div class="subject-name">{{subject}}</div>
+            
+            <h3>Performance Trend</h3>
+            <p class="trend-positive">{{performance_trend}}</p>
+            
+            {{#strong_topics.length}}
+              <div class="strong-topics">
+                <h3>💪 Strong Areas</h3>
+                <ul>
+                  {{#strong_topics}}
+                    <li>{{.}}</li>
+                  {{/strong_topics}}
+                </ul>
+              </div>
+            {{/strong_topics.length}}
+            
+            {{#weak_topics.length}}
+              <div class="weak-topics">
+                <h3>🎯 Areas for Improvement</h3>
+                <ul>
+                  {{#weak_topics}}
+                    <li>{{.}}</li>
+                  {{/weak_topics}}
+                </ul>
+              </div>
+            {{/weak_topics.length}}
+            
+            {{#improvement_recommendations.length}}
+              <div class="recommendations">
+                <h3>💡 Improvement Recommendations</h3>
+                <ul>
+                  {{#improvement_recommendations}}
+                    <li>{{.}}</li>
+                  {{/improvement_recommendations}}
+                </ul>
+              </div>
+            {{/improvement_recommendations.length}}
+          </div>
+        {{/subject_wise_analysis}}
+        
+        {{#priority_focus_areas.length}}
+          <div class="section">
+            <h3>🔥 Priority Focus Areas</h3>
+            <ul>
+              {{#priority_focus_areas}}
+                <li>{{.}}</li>
+              {{/priority_focus_areas}}
+            </ul>
+          </div>
+        {{/priority_focus_areas.length}}
+      {{/student_insights}}
+    </div>
+    
+    <div class="section" id="questions">
+      <h2>✏️ Practice Questions</h2>
+      {{#practice_questions.length}}
+        <ol class="question-list">
+          {{#practice_questions}}
+            <li>
+              <div class="question-text">{{{question}}}</div>
+              <span class="question-marks">({{marks}} mark{{#marksPlural}}s{{/marksPlural}})</span>
+              
+              {{#options}}
+                <ul class="options">
+                  {{#.}}
+                    <li><strong>{{key}}.</strong> {{{option}}}</li>
+                  {{/.}}
+                </ul>
+              {{/options}}
+            </li>
+          {{/practice_questions}}
+        </ol>
+      {{/practice_questions.length}}
+      {{^practice_questions.length}}
+        <div class="no-content">
+          No practice questions available at this time.
+        </div>
+      {{/practice_questions.length}}
+    </div>
+    
+    <script>
+      // trigger MathJax after content is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        if (window.MathJax && MathJax.typeset) {
+          MathJax.typeset();
+        }
+      });
+    </script>
+  </body>
+</html>
