@@ -1,9 +1,9 @@
 import { get } from "http";
-import { openai } from "../config/openai";
-import { getStudentGradingResponseFormat } from "../responseFormat/studentGrading";
-import { getOpenAiResponseForStudentGrading } from "../messages/getOpenAiMessagesForStudentGrading";
-import { MAX_RETRIES } from "../constants";
-import { costOfOpenAiCall } from "../utils";
+import { openai } from "../config/openai.js";
+import { getStudentGradingResponseFormat } from "../responseFormat/studentGrading.js";
+import { getOpenAiResponseForStudentGrading } from "../messages/getOpenAiMessagesForStudentGrading.js";
+import { MAX_RETRIES } from "../constants.js";
+import { costOfOpenAiCall } from "../utils.js";
 
 export async function compareStudentAndReferenceAnswersheetJson({
   studentAnswerSheetJson,

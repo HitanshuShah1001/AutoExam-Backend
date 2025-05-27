@@ -1,4 +1,6 @@
-import { ReferenceSheet } from "./ReferenceSheet";
+import { DataTypes, Sequelize } from "sequelize";
+import { ReferenceSheet } from "./ReferenceSheet.js";
+import { sequelize } from "../connections/database.js";
 
 // 3) StudentAnswerSheet: one per student, tied to ReferenceSheet
 export const StudentAnswerSheet = sequelize.define(

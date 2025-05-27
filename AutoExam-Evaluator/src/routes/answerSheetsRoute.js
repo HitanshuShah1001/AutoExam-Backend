@@ -1,5 +1,5 @@
 import express from "express";
-import { parseS3Url, s3 } from "../config/s3.js";
+import { parseS3Url, parseS3UrlForEvaluation, s3 } from "../config/s3.js";
 import {
   convertToOCR,
   extractStudentNameFromUrl,
@@ -13,6 +13,7 @@ import { ReferenceSheet } from "../models/ReferenceSheet.js";
 import { generateStudentEvaluationFromExtractedTextMistral } from "../controllers/studentAnswerSheetController.js";
 import { compareStudentAndReferenceAnswersheetJson } from "../controllers/comparingAnswerSheetController.js";
 import { StudentAnswerSheet } from "../models/StudentAnswerSheet.js";
+import { AUTOEXAM_EVALUATION_BUCKET } from "../constants.js";
 
 const studentReferenceSheetRouter = express.Router();
 
@@ -53,7 +54,8 @@ studentReferenceSheetRouter.post(
           console.error(`Invalid student name extracted from URL: ${pdfUrl}`);
           continue; // skip this URL if name extraction fails
         }
-        const { Bucket, Key } = parseS3Url(pdfUrl);
+        const Bucket = AUTOEXAM_EVALUATION_BUCKET;
+        const { Key } = parseS3UrlForEvaluation(pdfUrl);
         const s3Obj = await safeCall("retrieve file from S3", () =>
           s3.getObject({ Bucket, Key }).promise()
         );
@@ -128,3 +130,5 @@ studentReferenceSheetRouter.post(
     }
   }
 );
+
+export { studentReferenceSheetRouter };

@@ -59,7 +59,6 @@ export function getStudentAnswerSheetResponseFormat() {
                     },
                   },
                   required: [
-                    "questionId",
                     "questionText",
                     "questionType",
                     "referenceAnswer",

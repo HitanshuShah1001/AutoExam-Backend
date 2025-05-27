@@ -1,5 +1,6 @@
 import express from "express";
 import { referenceSheetRouter } from "./referenceSheetRoute.js";
+import { studentReferenceSheetRouter } from "./answerSheetsRoute.js";
 
 const router = express.Router();
 
@@ -9,5 +10,5 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/evaluate", referenceSheetRouter);
-
+router.use("/answerSheetEvaluate", studentReferenceSheetRouter);
 export default router;
