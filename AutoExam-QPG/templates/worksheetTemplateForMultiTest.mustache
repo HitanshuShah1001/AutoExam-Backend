@@ -237,29 +237,39 @@
     <div class="section" id="questions">
       <h2>✏️ Practice Questions</h2>
       {{#practice_questions.length}}
-        <ol class="question-list">
-          {{#practice_questions}}
-            <li>
-              <div class="question-text">{{{question}}}</div>
-              <span class="question-marks">({{marks}} mark{{#marksPlural}}s{{/marksPlural}})</span>
-              
-              {{#options}}
-                <ul class="options">
-                  {{#.}}
-                    <li><strong>{{key}}.</strong> {{{option}}}</li>
-                  {{/.}}
-                </ul>
-              {{/options}}
-            </li>
-          {{/practice_questions}}
-        </ol>
+        {{#practice_questions}}
+          <div class="subject-analysis">
+            <div class="subject-name">{{subject}} - {{topic}}</div>
+            <ol class="question-list">
+              {{#questions}}
+                <li>
+                  <div class="question-text">{{{question}}}</div>
+                  <span class="question-marks">({{marks}} mark{{#marksPlural}}s{{/marksPlural}})</span>
+
+                  {{#options}}
+                    <ul class="options">
+                      {{#.}}
+                        <li><strong>{{key}}.</strong> {{{option}}}</li>
+                      {{/.}}
+                    </ul>
+                  {{/options}}
+                  {{^options}}
+                    <p><em>Descriptive Question</em></p>
+                  {{/options}}
+                </li>
+              {{/questions}}
+            </ol>
+          </div>
+        {{/practice_questions}}
       {{/practice_questions.length}}
+
       {{^practice_questions.length}}
         <div class="no-content">
           No practice questions available at this time.
         </div>
       {{/practice_questions.length}}
     </div>
+
     
     <script>
       // trigger MathJax after content is loaded
