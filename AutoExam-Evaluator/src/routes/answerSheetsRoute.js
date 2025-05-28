@@ -1,14 +1,12 @@
 import express from "express";
-import { parseS3Url, parseS3UrlForEvaluation, s3 } from "../config/s3.js";
+import { parseS3UrlForEvaluation, s3 } from "../config/s3.js";
 import {
   convertToOCR,
   extractStudentNameFromUrl,
   getSignedUrl,
   safeCall,
-  uploadAndReplaceImages,
   uploadFileToMistral,
 } from "../utils.js";
-import path from "path";
 import { ReferenceSheet } from "../models/ReferenceSheet.js";
 import { generateStudentEvaluationFromExtractedTextMistral } from "../controllers/studentAnswerSheetController.js";
 import { compareStudentAndReferenceAnswersheetJson } from "../controllers/comparingAnswerSheetController.js";
@@ -71,25 +69,19 @@ studentReferenceSheetRouter.post(
         const ocr = await safeCall("convert to OCR", () =>
           convertToOCR({ signedUrl })
         );
-        const prefix = path.parse(Key).name;
-        const fixedOcr = await safeCall("upload and replace images", () =>
-          uploadAndReplaceImages({ ocrResponse: ocr, prefix })
-        );
 
         // 3) generate student JSON + cost
         const [genJsonResult, cost_of_conversion_to_evaluable_json] =
           await safeCall("generate answer json and calculate marks", () =>
             generateStudentEvaluationFromExtractedTextMistral({
-              ocrResponse: fixedOcr,
+              ocrResponse: ocr,
               referenceAnswerSheet: referenceJSON,
             })
           );
-
         if (!genJsonResult.success) {
           // skip failed ones
           continue;
         }
-
         // 4) compare + cost
         const [finalEval, cost_of_evaluation] =
           await compareStudentAndReferenceAnswersheetJson({

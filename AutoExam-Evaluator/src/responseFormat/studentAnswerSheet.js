@@ -81,13 +81,10 @@ export function getStudentAnswerSheetResponseFormat() {
                       description:
                         "The text of the student answer that couldn't be mapped",
                     },
-                    possibleQuestionIds: {
-                      type: "array",
+                    questionText: {
+                      type: "string",
                       description:
-                        "Possible question IDs this might belong to, if any",
-                      items: {
-                        type: "integer",
-                      },
+                        "The question text from the reference sheet that this answer was intended for, if known",
                     },
                     notes: {
                       type: "string",
@@ -95,12 +92,12 @@ export function getStudentAnswerSheetResponseFormat() {
                         "Any notes about why this answer couldn't be mapped",
                     },
                   },
-                  required: ["answerText", "notes"],
+                  required: ["answerText", "questionText", "notes"],
                   additionalProperties: false,
                 },
               },
             },
-            required: ["mappedQuestions"],
+            required: ["mappedQuestions", "unmappableAnswers"],
             additionalProperties: false,
           },
         },

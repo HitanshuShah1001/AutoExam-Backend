@@ -118,6 +118,8 @@ export function getStudentGradingResponseFormat() {
               "percentage",
               "gradedQuestions",
               "overallFeedback",
+              "strengths",
+              "areasForImprovement",
             ],
             additionalProperties: false,
           },

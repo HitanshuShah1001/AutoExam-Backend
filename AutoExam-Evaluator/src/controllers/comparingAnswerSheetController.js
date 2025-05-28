@@ -27,7 +27,7 @@ export async function compareStudentAndReferenceAnswersheetJson({
           messages,
           response_format,
         });
-        studentEval = response.choices[0].message.parsed;
+        let result = response.choices[0].message.parsed;
         generatedStudentEvaluationJson = result?.answer || [];
         if (generatedEvaluationJson.length === 0) {
           retries++;
