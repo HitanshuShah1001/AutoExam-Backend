@@ -393,7 +393,7 @@ extractRouter.post("/pdf-mistral-from-image", async (req, res) => {
         message: "pdfUrls is required and must be a non-empty array",
       });
     }
-    const { Bucket, Key } = parseS3Url(imageUrl);
+    const { Bucket, Key } = parseS3UrlForTextExtract(imageUrl);
     const s3Object = await s3.getObject({ Bucket, Key }).promise();
     const fileBuffer = s3Object.Body;
     const apikey = process.env.MISTRAL_API_KEY;
@@ -561,6 +561,27 @@ export function parseS3Url(s3Url) {
     if (match) {
       Bucket = match[1];
       Key = match[3];
+    }
+  }
+
+  return { Bucket, Key };
+}
+
+export function parseS3UrlForTextExtract(s3Url) {
+  let Bucket, Key;
+
+  if (s3Url.startsWith("s3://")) {
+    const withoutPrefix = s3Url.replace("s3://", "");
+    const [bucket, ...rest] = withoutPrefix.split("/");
+    Bucket = bucket;
+    Key = rest.join("/");
+  } else if (s3Url.startsWith("https://")) {
+    const match = s3Url.match(
+      /^https:\/\/([^.]+)\.s3(?:\.[^.]*)?\.amazonaws\.com\/(.+)$/
+    );
+    if (match) {
+      Bucket = match[1];
+      Key = match[2];
     }
   }
 
