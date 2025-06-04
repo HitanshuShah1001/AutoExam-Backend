@@ -221,16 +221,7 @@
           </div>
         {{/subject_wise_analysis}}
         
-        {{#priority_focus_areas.length}}
-          <div class="section">
-            <h3>🔥 Priority Focus Areas</h3>
-            <ul>
-              {{#priority_focus_areas}}
-                <li>{{.}}</li>
-              {{/priority_focus_areas}}
-            </ul>
-          </div>
-        {{/priority_focus_areas.length}}
+        
       {{/student_insights}}
     </div>
     
@@ -244,8 +235,6 @@
               {{#questions}}
                 <li>
                   <div class="question-text">{{{question}}}</div>
-                  <span class="question-marks">({{marks}} mark{{#marksPlural}}s{{/marksPlural}})</span>
-
                   {{#options}}
                     <ul class="options">
                       {{#.}}
