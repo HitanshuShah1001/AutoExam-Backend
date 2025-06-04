@@ -440,7 +440,7 @@ extractRouter.post("/pdf-mistral-from-image", async (req, res) => {
     console.log(e, "error");
     return res.status(500).json({
       success: false,
-      message: `Some error occured`,
+      message: `Some error occured ${JSON.stringify(e)}`,
     });
   }
 });
