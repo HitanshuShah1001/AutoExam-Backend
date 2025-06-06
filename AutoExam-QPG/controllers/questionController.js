@@ -740,6 +740,88 @@ class QuestionController {
       res.status(500).json({ error: "Internal server error" });
     }
   }
+
+  async getQuestionsForChaptersFunctionCall(chapters) {
+    if (!Array.isArray(chapters)) {
+      throw new Error("`chapters` must be an array of strings");
+    }
+
+    try {
+      const results = await Promise.all(
+        chapters.map(async (chapter) => {
+          // 1. Normalize input into words for ILIKE matching
+          const words = chapter
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, " ")
+            .split(/\s+/)
+            .filter(Boolean);
+
+          // 2. Build base WHERE clause: chapter ILIKE '%word1%' AND ILIKE '%word2%' ...
+          const baseWhere = {
+            [Op.and]: words.map((w) => ({ chapter: { [Op.iLike]: `%${w}%` } })),
+          };
+
+          // 3. Fetch up to 10 descriptive and up to 10 MCQ separately
+          const [descriptiveRows, mcqRows] = await Promise.all([
+            Question.findAll({
+              where: { ...baseWhere, type: "descriptive" },
+              attributes: ["questionText"],
+              raw: true,
+              order: [["updatedAt", "DESC"]],
+              limit: 10,
+            }),
+            Question.findAll({
+              where: { ...baseWhere, type: "mcq" },
+              attributes: ["questionText", "options"],
+              raw: true,
+              order: [["updatedAt", "DESC"]],
+              limit: 10,
+            }),
+          ]);
+
+          // 4. Determine how many of each to take
+          const haveDesc = descriptiveRows.length;
+          const haveMcq = mcqRows.length;
+          let takeDesc = Math.min(5, haveDesc);
+          let takeMcq = Math.min(5, haveMcq);
+          let slotsLeft = 10 - (takeDesc + takeMcq);
+
+          // 5. Compensate from the other type if one ran short
+          if (slotsLeft > 0) {
+            const extraFromMcq = Math.min(slotsLeft, haveMcq - takeMcq);
+            takeMcq += extraFromMcq;
+            slotsLeft -= extraFromMcq;
+          }
+          if (slotsLeft > 0) {
+            const extraFromDesc = Math.min(slotsLeft, haveDesc - takeDesc);
+            takeDesc += extraFromDesc;
+            slotsLeft -= extraFromDesc;
+          }
+
+          // 6. Slice and map to plain strings
+          const finalDescriptive = descriptiveRows
+            .slice(0, takeDesc)
+            .map((r) => r.questionText);
+
+          const finalMcq = mcqRows.slice(0, takeMcq).map((r) => ({
+            questionText: r.questionText,
+            options: (r?.options || []).map((opt) => ({
+              key: opt.key,
+              option: opt.option,
+            })), // include the full array here
+          }));
+
+          // 7. Return under the original chapter key
+          return { [chapter]: finalDescriptive.concat(finalMcq) };
+        })
+      );
+
+      return results;
+    } catch (err) {
+      console.error(err);
+      throw new Error("Failed to fetch questions for chapters");
+    }
+  }
 }
 
 export const questionController = new QuestionController();

@@ -1,9 +1,7 @@
 import OpenAI from "openai";
-import { prompts } from "../generativeTask/utils/prompts.js";
 import {
   structureQuestionPaper,
   structureSolution,
-  getOpenAIMessages,
   generateHTML,
   getQuestionPaperWithSolutionResponseFormat,
   uploadToS3,
@@ -26,6 +24,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getMetadataFromSegments } from "../utils/paper.util.js";
 import { makeFirstLetterCapitalOfEachWord } from "../utils/makeFirstLetterCapitalOfEachWord.js";
 import { User } from "../models/user.js";
+import { questionController } from "./questionController.js";
+import { generateSystemPrompt, getUserPrompt } from "../utils/prompts.js";
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -96,7 +96,14 @@ class QuestionPaperController {
         });
       }
       const generatedPaper = generatedPaperDocument.toJSON();
-
+      let TOPICSOFBLUEPRINT = new Set();
+      for (let individualblueprint of blueprint) {
+        TOPICSOFBLUEPRINT.add(individualblueprint.topic);
+      }
+      const questions =
+        await questionController.getQuestionsForChaptersFunctionCall(
+          Array.from(TOPICSOFBLUEPRINT)
+        );
       res.status(200).json({
         message: "Question paper generation started",
         questionPaper: generatedPaper,
@@ -109,7 +116,13 @@ class QuestionPaperController {
       let leftoverBlueprint = blueprint; // blueprint for leftover questions to be generated. Will be all questions for the first try
 
       while (retryCount < MAX_RETRY_COUNT) {
-        let messages = getOpenAIMessages(leftoverBlueprint, prompts, grade);
+        let messages = [
+          { role: "system", content: generateSystemPrompt({ questions }) },
+          {
+            role: "user",
+            content: getUserPrompt({ blueprint }),
+          },
+        ];
         const response = await openai.beta.chat.completions.parse({
           model: "gpt-4o",
           messages,
@@ -309,9 +322,6 @@ class QuestionPaperController {
       return;
     } catch (error) {
       console.error("Error generating question paper:", error);
-      return res
-        .status(500)
-        .json({ error: "Failed to generate question paper" });
     }
   }
 
