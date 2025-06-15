@@ -250,14 +250,7 @@
               {{#subject_wise_trends}}
                 <div class="trend-item">
                   <div class="trend-subject-name">{{subject}}</div>
-                  <span class="performance-pattern pattern-{{performance_pattern}}">
-                    {{#performance_pattern}}
-                      {{#eq performance_pattern "improving"}}📈 Improving{{/eq}}
-                      {{#eq performance_pattern "declining"}}📉 Declining{{/eq}}
-                      {{#eq performance_pattern "stable"}}📊 Stable{{/eq}}
-                      {{#eq performance_pattern "volatile"}}🌊 Volatile{{/eq}}
-                    {{/performance_pattern}}
-                  </span>
+                  
                   <p>{{trend_analysis}}</p>
                   {{#key_insights.length}}
                     <div class="key-insights">
