@@ -9,8 +9,14 @@ class StudentController {
    * @body    { studentName, schoolName, standard, worksheet_s3_link, cost }
    */
   async createStudent(req, res) {
-    let { studentName, schoolName, standard, worksheet_s3_link, cost } =
-      req.body;
+    let {
+      studentName,
+      schoolName,
+      standard,
+      worksheet_s3_link,
+      cost,
+      currentTestData = [],
+    } = req.body;
     standard = String(standard);
     cost = Math.ceil(cost);
     try {
@@ -19,9 +25,16 @@ class StudentController {
         where: { studentName, standard },
       });
 
+      const existingData = existing.prevTests ?? [];
+      const newTestData = [...existingData, ...currentTestData];
       if (existing) {
         // 2a. Update and return 200
-        await existing.update({ schoolName, worksheet_s3_link, cost });
+        await existing.update({
+          schoolName,
+          worksheet_s3_link,
+          cost,
+          prevTests: newTestData,
+        });
         return res.status(200).json({
           success: true,
           message: "Student record updated successfully",
@@ -36,6 +49,7 @@ class StudentController {
         standard,
         worksheet_s3_link,
         cost,
+        prevTests: newTestData,
       });
 
       return res.status(201).json({
@@ -52,52 +66,82 @@ class StudentController {
       });
     }
   }
-
-  async downloadWorksheetFromPdf(req, res) {
-  try {
-    const { s3Link, pathToSave } = req.body;
-    
-    console.log('=== Controller Debug ===');
-    console.log('Received s3Link:', s3Link);
-    console.log('Received pathToSave:', pathToSave);
-    
-    // Validate inputs
-    if (!s3Link || !pathToSave) {
-      return res.status(400).json({
+  async getStudentPreviousMarks(req, res) {
+    try {
+      const { studentName, schoolName, standard } = req.body;
+      if (!studentName || !school) {
+        return res.status(400).json({
+          success: false,
+          message: "Missing required parameters: studentName and school",
+        });
+      }
+      const student = await Student.findOne({
+        where: { studentName, schoolName, standard },
+      });
+      if (!student) {
+        return res.status(200).json({
+          studentData: [],
+          success: true,
+        });
+      } else {
+        return res.status(200).json({
+          studentData: student.prevTests,
+          success: true,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+      return res.status(500).json({
         success: false,
-        message: "Missing required parameters: s3Link and pathToSave"
+        error: e,
       });
     }
-    
-    const response = await htmlUrlToPdf({
-      htmlUrl: s3Link,
-      savePath: pathToSave,
-    });
-    
-    console.log('PDF generation response:', response);
-    
-    if (response.success === true) {
-      return res.status(201).json({
-        path: response.savedPath,
-        success: true,
-        fileSize: response.fileSize
-      });
-    } else {
-      return res.status(400).json({
-        success: false,
-        error: response.error,
-        message: "PDF generation failed"
-      });
-    }
-  } catch (e) {
-    console.error("Error in downloadWorksheetFromPdf controller:", e);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to download worksheet from PDF",
-      error: e.message,
-    });
   }
-}
+  async downloadWorksheetFromPdf(req, res) {
+    try {
+      const { s3Link, pathToSave } = req.body;
+
+      console.log("=== Controller Debug ===");
+      console.log("Received s3Link:", s3Link);
+      console.log("Received pathToSave:", pathToSave);
+
+      // Validate inputs
+      if (!s3Link || !pathToSave) {
+        return res.status(400).json({
+          success: false,
+          message: "Missing required parameters: s3Link and pathToSave",
+        });
+      }
+
+      const response = await htmlUrlToPdf({
+        htmlUrl: s3Link,
+        savePath: pathToSave,
+      });
+
+      console.log("PDF generation response:", response);
+
+      if (response.success === true) {
+        return res.status(201).json({
+          path: response.savedPath,
+          success: true,
+          fileSize: response.fileSize,
+        });
+      } else {
+        return res.status(400).json({
+          success: false,
+          error: response.error,
+          message: "PDF generation failed",
+        });
+      }
+    } catch (e) {
+      console.error("Error in downloadWorksheetFromPdf controller:", e);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to download worksheet from PDF",
+        error: e.message,
+      });
+    }
+  }
 }
 
 export const studentController = new StudentController();

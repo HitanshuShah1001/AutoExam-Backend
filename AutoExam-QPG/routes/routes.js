@@ -8,6 +8,7 @@ import { questionPaperRouter } from "./questionPaperRoutes.js";
 import { questionRouter } from "./questionRoutes.js";
 import { worksheetRouter } from "./worksheetRoutes.js";
 import { studentStatRouter } from "./insightRoutes.js";
+import { preSignedRouter } from "./preSignedUrlRoutes.js";
 
 const router = express.Router();
 
@@ -19,12 +20,12 @@ router.get("/health", (req, res) => {
 router.use("/auth", authRouter);
 
 // Protected routes (authentication required)
-router.use('/user', verifyAccessToken, userRouter);
-router.use('/extract', verifyAccessToken, extractRouter);
-router.use('/blueprint', verifyAccessToken, blueprintRouter);
-router.use('/questionPaper', verifyAccessToken, questionPaperRouter);
-router.use('/question', verifyAccessToken, questionRouter);
+router.use("/user", verifyAccessToken, userRouter);
+router.use("/extract", verifyAccessToken, extractRouter);
+router.use("/blueprint", verifyAccessToken, blueprintRouter);
+router.use("/questionPaper", verifyAccessToken, questionPaperRouter);
+router.use("/question", questionRouter);
 router.use("/analysis", worksheetRouter);
-router.use("/student-stat-analysis",studentStatRouter)
-
+router.use("/student-stat-analysis", studentStatRouter);
+router.use("/autoexam", preSignedRouter);
 export default router;

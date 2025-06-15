@@ -59,6 +59,49 @@
         padding: 15px;
         margin-bottom: 20px;
       }
+      .historical-trends {
+        background-color: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .trend-item {
+        margin-bottom: 15px;
+        padding: 12px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+      .trend-subject-name {
+        font-weight: bold;
+        color: #2c5aa0;
+        margin-bottom: 8px;
+        font-size: 1.05rem;
+      }
+      .performance-pattern {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .pattern-improving {
+        background-color: #d4edda;
+        color: #28a745;
+      }
+      .pattern-declining {
+        background-color: #f8d7da;
+        color: #dc3545;
+      }
+      .pattern-stable {
+        background-color: #d1ecf1;
+        color: #0c5460;
+      }
+      .pattern-volatile {
+        background-color: #fff3cd;
+        color: #856404;
+      }
       .subject-analysis {
         margin-bottom: 25px;
         padding: 15px;
@@ -86,6 +129,13 @@
       .trend-negative {
         color: #dc3545;
         font-weight: bold;
+      }
+      .historical-context {
+        background-color: #e3f2fd;
+        padding: 10px;
+        border-radius: 4px;
+        margin: 10px 0;
+        border-left: 3px solid #2196f3;
       }
       ul, ol {
         margin: 10px 0;
@@ -148,6 +198,12 @@
         text-align: center;
         padding: 20px;
       }
+      .key-insights {
+        margin-top: 10px;
+      }
+      .key-insights ul {
+        margin: 5px 0;
+      }
     </style>
     
     <!-- MathJax for rendering any LaTeX in descriptive questions -->
@@ -166,10 +222,7 @@
   </head>
   
   <body>
-    <div class="header-container">
-      <img src="https://autoexam-staffroom-files.s3.eu-north-1.amazonaws.com/western_logo.png" alt="School Logo" class="school-logo" />
-      <h1>Student Performance Report</h1>
-    </div>
+   
     
     <div class="section" id="parent-recommendations">
       <h2>📋 Parent Recommendations</h2>
@@ -187,12 +240,54 @@
           <p>{{overall_performance}}</p>
         </div>
         
+        {{#historical_trends}}
+          <div class="historical-trends">
+            <h3>🕒 Historical Performance Trends</h3>
+            <p><strong>Overall Trend:</strong> {{overall_trend}}</p>
+            
+            {{#subject_wise_trends.length}}
+              <h4>Subject-wise Trends:</h4>
+              {{#subject_wise_trends}}
+                <div class="trend-item">
+                  <div class="trend-subject-name">{{subject}}</div>
+                  <span class="performance-pattern pattern-{{performance_pattern}}">
+                    {{#performance_pattern}}
+                      {{#eq performance_pattern "improving"}}📈 Improving{{/eq}}
+                      {{#eq performance_pattern "declining"}}📉 Declining{{/eq}}
+                      {{#eq performance_pattern "stable"}}📊 Stable{{/eq}}
+                      {{#eq performance_pattern "volatile"}}🌊 Volatile{{/eq}}
+                    {{/performance_pattern}}
+                  </span>
+                  <p>{{trend_analysis}}</p>
+                  {{#key_insights.length}}
+                    <div class="key-insights">
+                      <strong>Key Insights:</strong>
+                      <ul>
+                        {{#key_insights}}
+                          <li>{{.}}</li>
+                        {{/key_insights}}
+                      </ul>
+                    </div>
+                  {{/key_insights.length}}
+                </div>
+              {{/subject_wise_trends}}
+            {{/subject_wise_trends.length}}
+          </div>
+        {{/historical_trends}}
+        
         {{#subject_wise_analysis}}
           <div class="subject-analysis">
             <div class="subject-name">{{subject}}</div>
             
-            <h3>Performance Trend</h3>
-            <p class="trend-positive">{{performance_trend}}</p>
+            <h3>Current Performance Trend</h3>
+            <p class="trend-positive">{{current_performance_trend}}</p>
+            
+            {{#historical_context}}
+              <div class="historical-context">
+                <h4>📈 Historical Context</h4>
+                <p>{{historical_context}}</p>
+              </div>
+            {{/historical_context}}
             
             {{#strong_topics.length}}
               <div class="strong-topics">
@@ -275,6 +370,10 @@
           MathJax.typeset();
         }
       });
+      
+      // Helper function for Mustache template equality check
+      // Note: This is a simplified version - you may need to implement proper Mustache helpers
+      // depending on your templating engine
     </script>
   </body>
 </html>
