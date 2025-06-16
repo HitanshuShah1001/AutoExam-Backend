@@ -356,12 +356,9 @@ class QuestionPaperController {
       if (userId) {
         whereClause[Op.and] = [
           ...(whereClause[Op.and] || []),
-          {
-            [Op.or]: [{ createdBy: userId }, { createdBy: null }],
-          },
+          {createdBy: userId}
         ];
       }
-
       if (name) {
         whereClause.name = { [Op.regexp]: name };
       }
