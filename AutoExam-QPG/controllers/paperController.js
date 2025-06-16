@@ -286,7 +286,7 @@ class QuestionPaperController {
         structuredSolution,
         "./templates/solutionTemplate.mustache"
       );
-
+      let fileName = name.split(" ").join("_");
       // TODO: use bluebird promise
       // Persist Question Paper HTMLs to S3
       const questionPaperHTMLUrls = [];
@@ -294,7 +294,7 @@ class QuestionPaperController {
       for (const renderedQuestionPaperHTML of renderedQuestionPaperHTMLs) {
         const questionPaperHTMLUrl = await uploadToS3(
           renderedQuestionPaperHTML,
-          `${name}-${++index}`,
+          `${fileName}-${++index}`,
           "html"
         );
         questionPaperHTMLUrls.push(questionPaperHTMLUrl);
@@ -303,7 +303,7 @@ class QuestionPaperController {
       // Persist Solution HTMLs to S3
       const solutionHTMLUrl = await uploadToS3(
         renderedSolutionHTML,
-        `solution-${name}`,
+        `solution-${fileName}`,
         "html"
       );
       console.log(`Successfully uploaded question paper to S3`);
@@ -356,7 +356,7 @@ class QuestionPaperController {
       if (userId) {
         whereClause[Op.and] = [
           ...(whereClause[Op.and] || []),
-          {createdBy: userId}
+          { createdBy: userId },
         ];
       }
       if (name) {
