@@ -46,7 +46,7 @@ class QuestionPaperController {
         academyName,
         timeDuration,
       } = req.body;
-
+      const { user = null } = req;
       // Validate Input
       const requiredFields = [
         { field: blueprint, message: "blueprint is required in req.body" },
@@ -67,6 +67,7 @@ class QuestionPaperController {
       const blueprintQuestionIds = blueprint.map(
         (question) => question.questionId
       );
+
       if (
         blueprintQuestionIds.length !==
           lodash.uniq(blueprintQuestionIds).length ||
@@ -87,6 +88,7 @@ class QuestionPaperController {
         subject,
         status: "inProgress",
         type: "aiGenerated",
+        createdBy: parseInt(user.id) ?? null,
       });
 
       // convert generatedPaper to JSON
@@ -316,7 +318,13 @@ class QuestionPaperController {
 
       // Notify User
       const mobileNumber = req.user.mobileNumber;
-      await sendMessageOfCompletion({ countryCode: "+91", mobileNumber, name });
+      await sendMessageOfCompletion({
+        countryCode: "+91",
+        mobileNumber,
+        name,
+        questionPaperUrl: questionPaperHTMLUrls[0],
+        solutionSheetUrl: solutionHTMLUrl,
+      });
 
       console.log("Successfully updated question status");
       return;

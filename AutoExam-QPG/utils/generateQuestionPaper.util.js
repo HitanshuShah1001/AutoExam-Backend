@@ -53,7 +53,9 @@ export function structureQuestionPaper({
     if (q.optionalGroupId) {
       // If this is the first time we see this optional group, create and push the group object.
       if (!optionalGroupMap.has(q.optionalGroupId)) {
-        const questionNumber = sectionToCounter[section] ? sectionToCounter[section] : 1;
+        const questionNumber = sectionToCounter[section]
+          ? sectionToCounter[section]
+          : 1;
         sectionToCounter[section] = questionNumber + 1;
         const group = {
           optionalGroup: true,
@@ -103,7 +105,7 @@ export function structureQuestionPaper({
           acc +
           (q.optionalGroup
             ? q.questions.reduce((sum, optQ) => sum + (optQ.marks || 0), 0) /
-            q.questions.length
+              q.questions.length
             : q.marks || 0),
         0
       );
@@ -124,10 +126,10 @@ export function structureQuestionPaper({
                 options:
                   optQ.type === "mcq" && optQ.options
                     ? optQ.options.map((opt) => ({
-                      key: opt.key,
-                      option: opt.optionText ?? opt.option,
-                      imageUrl: opt.imageUrl,
-                    }))
+                        key: opt.key,
+                        option: opt.optionText ?? opt.option,
+                        imageUrl: opt.imageUrl,
+                      }))
                     : [],
                 subQuestionPadding: basePadding,
                 isFirst: idx === 0,
@@ -145,10 +147,10 @@ export function structureQuestionPaper({
           options:
             q.type === "mcq" && q.options
               ? q.options.map((opt) => ({
-                key: opt.key,
-                option: opt.optionText ?? opt.option,
-                imageUrl: opt.imageUrl,
-              }))
+                  key: opt.key,
+                  option: opt.optionText ?? opt.option,
+                  imageUrl: opt.imageUrl,
+                }))
               : [],
         };
       });
@@ -191,7 +193,9 @@ export function structureSectionedQuestionPapers({
 
   // Sort each section's questions by "orderIndex"
   Object.keys(sectionMap).forEach((sectionName) => {
-    sectionMap[sectionName].sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
+    sectionMap[sectionName].sort(
+      (a, b) => (a.orderIndex || 0) - (b.orderIndex || 0)
+    );
   });
 
   // Build a new question list, preserving optional-group logic, but using existing sections and orderIndex.
@@ -254,7 +258,10 @@ export function structureSectionedQuestionPapers({
       // Same logic for sectionTotalMarks:
       const sectionTotalMarks = questionsInSection.reduce((acc, q) => {
         if (q.optionalGroup) {
-          const groupSum = q.questions.reduce((sum, optQ) => sum + (optQ.marks || 0), 0);
+          const groupSum = q.questions.reduce(
+            (sum, optQ) => sum + (optQ.marks || 0),
+            0
+          );
           return acc + groupSum / (q.questions.length || 1);
         }
         return acc + (q.marks || 0);
@@ -277,10 +284,10 @@ export function structureSectionedQuestionPapers({
                 options:
                   optQ.type === "mcq" && optQ.options
                     ? optQ.options.map((opt) => ({
-                      key: opt.key,
-                      option: opt.optionText ?? opt.option,
-                      imageUrl: opt.imageUrl,
-                    }))
+                        key: opt.key,
+                        option: opt.optionText ?? opt.option,
+                        imageUrl: opt.imageUrl,
+                      }))
                     : [],
                 subQuestionPadding: basePadding,
                 isFirst: idx === 0,
@@ -298,10 +305,10 @@ export function structureSectionedQuestionPapers({
           options:
             q.type === "mcq" && q.options
               ? q.options.map((opt) => ({
-                key: opt.key,
-                option: opt.optionText ?? opt.option,
-                imageUrl: opt.imageUrl,
-              }))
+                  key: opt.key,
+                  option: opt.optionText ?? opt.option,
+                  imageUrl: opt.imageUrl,
+                }))
               : [],
         };
       });
@@ -548,7 +555,9 @@ ${extractedText}
   ];
 }
 
-export function getOpenAIMessagesForMistralExtractedTextToQuestions(extractedText) {
+export function getOpenAIMessagesForMistralExtractedTextToQuestions(
+  extractedText
+) {
   const systemPrompt = `
       Context and General Instructions:
       1. You are a middleware that converts unstructured raw text of question papers into structured responses following the specified response format.
@@ -848,24 +857,31 @@ export const sendMessageOfCompletion = async ({
   countryCode,
   mobileNumber,
   name,
+  questionPaperUrl,
+  solutionSheetUrl,
 }) => {
-  const URL_TO_REDIRECT_TO = `https://www.gotutorless.com/question-paper-list`;
   try {
     if (!mobileNumber || !countryCode) {
       console.error("Mobile number and country code are not present");
       return;
     }
 
+    const message = `${name}, Your question paper has been generated successfully.
+
+📄 Question Paper: ${questionPaperUrl}
+✅ Solution Sheet: ${solutionSheetUrl}
+
+Thank you for using our service!
+AutoExam`;
+
     const response = await plivoClient.messages.create(
       process.env.PLIVO_PHONE_NUMBER,
       `${countryCode}${mobileNumber}`,
-      `${name} question paper was generated successfully.
-      You can check the generated question paper here: ${URL_TO_REDIRECT_TO}.
-      Thank you`
+      message
     );
 
     if (response) {
-      console.log("Message sent succesfully");
+      console.log("Message sent successfully");
     }
   } catch (error) {
     console.error("Error sending message:", error);
@@ -951,8 +967,8 @@ export function getQuestionPaperFromExtractedTextResponseFormat() {
                     "An array of image URLs relevant to the question. If no images, provide an empty array.",
                   items: {
                     type: "string",
-                    description: "A URL (e.g. S3 link) to an image."
-                  }
+                    description: "A URL (e.g. S3 link) to an image.",
+                  },
                 },
                 options: {
                   anyOf: [
@@ -976,11 +992,11 @@ export function getQuestionPaperFromExtractedTextResponseFormat() {
                           imageUrl: {
                             type: "string",
                             description:
-                              "An optional image URL for this option. If none, set to an empty string."
-                          }
+                              "An optional image URL for this option. If none, set to an empty string.",
+                          },
                         },
                         required: ["key", "option", "imageUrl"],
-                        additionalProperties: false
+                        additionalProperties: false,
                       },
                     },
                     {
@@ -1005,7 +1021,7 @@ export function getQuestionPaperFromExtractedTextResponseFormat() {
                 "difficulty",
                 "imageUrls",
                 "chapter",
-                "subject"
+                "subject",
               ],
               additionalProperties: false,
             },
@@ -1029,32 +1045,33 @@ export function getResponseFormatForQuestionMetadataUpdate() {
         properties: {
           answer: {
             type: "array",
-            description: "An array of question updates. Each object includes id, chapter, and subject.",
+            description:
+              "An array of question updates. Each object includes id, chapter, and subject.",
             items: {
               type: "object",
               properties: {
                 id: {
                   type: "string",
-                  description: "The unique identifier of the question."
+                  description: "The unique identifier of the question.",
                 },
                 chapter: {
                   type: "string",
-                  description: "The chapter to which the question belongs."
+                  description: "The chapter to which the question belongs.",
                 },
                 subject: {
                   type: "string",
-                  description: "The subject of the question."
-                }
+                  description: "The subject of the question.",
+                },
               },
               required: ["id", "chapter", "subject"],
-              additionalProperties: false
-            }
-          }
+              additionalProperties: false,
+            },
+          },
         },
         required: ["answer"],
-        additionalProperties: false
-      }
-    }
+        additionalProperties: false,
+      },
+    },
   };
 }
 
