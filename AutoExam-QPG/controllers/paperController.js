@@ -276,7 +276,7 @@ class QuestionPaperController {
       for (const questionPaper of allQuestionPapersSets) {
         const renderedQuestionPaperHTML = generateHTML(
           questionPaper,
-          "./templates/questionPaperTemplate.mustache"
+          "./templates/aiQuestionPaperTemplate.mustache"
         );
         renderedQuestionPaperHTMLs.push(renderedQuestionPaperHTML);
       }
