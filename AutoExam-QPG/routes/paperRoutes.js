@@ -1,5 +1,5 @@
 import express from "express";
-import { QuestionPaper } from "../models/questionPaper";
+import { QuestionPaper } from "../models/questionPaper.js";
 const paperRouter = express.Router();
 
 paperRouter.get("/paper", async (req, res) => {
