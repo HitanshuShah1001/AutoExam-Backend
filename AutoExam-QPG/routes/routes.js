@@ -9,6 +9,7 @@ import { questionRouter } from "./questionRoutes.js";
 import { worksheetRouter } from "./worksheetRoutes.js";
 import { studentStatRouter } from "./insightRoutes.js";
 import { preSignedRouter } from "./preSignedUrlRoutes.js";
+import { paperRouter } from "./paperRoutes.js";
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.use("/user", verifyAccessToken, userRouter);
 router.use("/extract", verifyAccessToken, extractRouter);
 router.use("/blueprint", verifyAccessToken, blueprintRouter);
 router.use("/questionPaper", verifyAccessToken, questionPaperRouter);
+router.use("/fetch", paperRouter);
 router.use("/question", questionRouter);
 router.use("/analysis", worksheetRouter);
 router.use("/student-stat-analysis", studentStatRouter);

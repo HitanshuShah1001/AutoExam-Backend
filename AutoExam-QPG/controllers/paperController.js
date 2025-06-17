@@ -26,6 +26,10 @@ import { makeFirstLetterCapitalOfEachWord } from "../utils/makeFirstLetterCapita
 import { User } from "../models/user.js";
 import { questionController } from "./questionController.js";
 import { generateSystemPrompt, getUserPrompt } from "../utils/prompts.js";
+import {
+  getQuestionPaperLinkToSendOverMessage,
+  getSolutionSheetLinkToSendOverMessage,
+} from "../utils/paperLink.js";
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -307,7 +311,6 @@ class QuestionPaperController {
         "html"
       );
       console.log(`Successfully uploaded question paper to S3`);
-
       // Update the QuestionPaper entry with the S3 URLs and status 'completed'
       await generatedPaperDocument.update({
         questionPaperLink: questionPaperHTMLUrls[0],
@@ -316,14 +319,22 @@ class QuestionPaperController {
         status: "completed",
       });
 
+      const questionPaperLinkToSend = getQuestionPaperLinkToSendOverMessage({
+        paperId: generatedPaperDocument.id,
+      });
+
+      const solutionPaperLinkToSend = getSolutionSheetLinkToSendOverMessage({
+        paperId: generatedPaperDocument.id,
+      });
+
       // Notify User
       const mobileNumber = req.user.mobileNumber;
       await sendMessageOfCompletion({
         countryCode: "+91",
         mobileNumber,
         name,
-        questionPaperUrl: questionPaperHTMLUrls[0],
-        solutionSheetUrl: solutionHTMLUrl,
+        questionPaperUrl: questionPaperLinkToSend,
+        solutionSheetUrl: solutionPaperLinkToSend,
       });
 
       console.log("Successfully updated question status");
