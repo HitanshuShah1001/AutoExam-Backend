@@ -324,7 +324,7 @@ class QuestionPaperController {
       });
 
       const solutionPaperLinkToSend = getSolutionSheetLinkToSendOverMessage({
-        paperId: generatedPaperDocument.id,
+        solutionId: generatedPaperDocument.id,
       });
 
       // Notify User
