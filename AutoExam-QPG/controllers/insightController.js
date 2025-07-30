@@ -69,7 +69,7 @@ class StudentController {
   async getStudentPreviousMarks(req, res) {
     try {
       const { studentName, schoolName, standard } = req.body;
-      if (!studentName || !school) {
+      if (!studentName || !schoolName) {
         return res.status(400).json({
           success: false,
           message: "Missing required parameters: studentName and school",
